@@ -73,7 +73,7 @@ query {
 }
 ```
 
-### Creating Data
+### Adding User
 ```graphql
 mutation {
   addUser(name: "user_name" , age : user_age , email : "user_email") {
@@ -83,7 +83,7 @@ mutation {
   }
 }
 ```
-### Deleting Data
+### Deleting User
 ```graphql
 mutation {
   deleteUser(id: "user_id_here") {
