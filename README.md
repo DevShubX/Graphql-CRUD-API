@@ -18,12 +18,12 @@ Follow these steps to get started with the GraphQL-based CRUD API:
 
 1. **Clone the Repository**: 
    ```bash
-   git clone https://github.com/DevShubX/your-repo.git
+   git clone https://github.com/DevShubX/Graphql-CRUD-API.git
    ```
 
 2. **Install Dependencies**: 
    ```bash
-   cd your-repo
+   cd GraphQL-CRUD-API
    npm install
    ```
 
@@ -50,13 +50,25 @@ Follow these steps to get started with the GraphQL-based CRUD API:
 ## Examples
 Here are some example GraphQL queries and mutations to get you started:
 
-### Querying Data
+### Querying Users
 ```graphql
 query {
   users {
     id
-    name
-    email
+    Name
+    Age
+    Email
+  }
+}
+```
+### Querying User By Id
+```graphql
+query {
+  users(id: "user_id_here") {
+    id
+    Name
+    Age
+    Email
   }
 }
 ```
@@ -64,25 +76,13 @@ query {
 ### Creating Data
 ```graphql
 mutation {
-  createUser(input: { name: "John Doe", email: "john@example.com" }) {
+  addUser(name: "user_name" , age : user_age , email : "user_email") {
     id
     name
     email
   }
 }
 ```
-
-### Updating Data
-```graphql
-mutation {
-  updateUser(id: "user_id_here", input: { name: "Updated Name" }) {
-    id
-    name
-    email
-  }
-}
-```
-
 ### Deleting Data
 ```graphql
 mutation {
