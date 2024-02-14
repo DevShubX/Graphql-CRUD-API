@@ -2,16 +2,28 @@ var express = require("express")
 var {graphqlHTTP} = require("express-graphql");
 const cors = require('cors');
 const graphqlSchema = require("./schema/graphql/schema");
-const connectDB = require("./config/db");
+const mongoose = require("mongoose");
 require('dotenv').config();
 
+mongoose.connect(process.env.MONGO_URL);
+
+const database = mongoose.connection;
+
+database.on('connected',()=>{
+    console.log("Database Connected");
+});
 
 var app = express();
 
 
-connectDB();
+const corsOptions = {
+    origin: '*',
+    optionSuccessStatus : 200,    
+}
 
-app.use(cors());
+app.use(cors(corsOptions));
+app.use(express.json());
+
 
 // Create a graphql API endpoint
 app.use("/graphql", graphqlHTTP({
@@ -22,4 +34,7 @@ app.use("/graphql", graphqlHTTP({
 // Start the server at port
 app.listen(4000);
 
-console.log("Running a GraphQL API server at http://localhost:4000/graphql")
+console.log("Running a GraphQL API server running");
+
+
+module.exports = app;
