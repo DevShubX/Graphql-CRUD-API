@@ -24,6 +24,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Creating a Get Method
+app.get("/",cors(),(req,res)=>{
+    res.status(200).json("Welcome to GraphQL CRUD API, To use the api use the /graphql route");
+});
+
 
 // Create a graphql API endpoint
 app.use("/graphql", graphqlHTTP({
