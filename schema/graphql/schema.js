@@ -21,15 +21,15 @@ const RootQuery = new GraphQLObjectType({
     fields :{
         users : {
             type : new GraphQLList(UserType),
-            resolve: (parent,args)=>{
-                return User.find();
+            resolve: async (parent,args)=>{
+                return await (User.find());
             }
         },
         user : {
             type : UserType,
             args : {id : {type : GraphQLID}},
-            resolve : (parent,args)=>{
-                return User.findById({_id : args.id});
+            resolve : async (parent,args)=>{
+                return (await User.findById({_id : args.id}));
             }
         }
     }
@@ -48,13 +48,13 @@ const MutationQuery = new GraphQLObjectType({
                 age : {type : GraphQLNonNull(GraphQLInt)},
                 email : {type : GraphQLNonNull(GraphQLString)},
             },
-            resolve : (parent,args)=>{
-                const user = new User({
+            resolve : async (parent,args)=>{
+                const user = await User.create({
                     Name : args.name,
                     Age : args.age,
                     Email : args.email,
                 });
-                return user.save();
+                return user;
             }
         },
         // Delete User.
@@ -63,8 +63,8 @@ const MutationQuery = new GraphQLObjectType({
             args : {
                 id : {type : GraphQLNonNull(GraphQLID)}
             },
-            resolve : (parent,args)=>{
-                const deletedUser = User.findByIdAndDelete({_id : args.id});
+            resolve : async (parent,args)=>{
+                const deletedUser = await User.findByIdAndDelete({_id : args.id});
                 return  deletedUser;
             }
         }
